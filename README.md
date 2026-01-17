@@ -31,3 +31,9 @@ How to run the REPL:
 	- Type the command "Python main_repl.py"
 	- Once you press enter the REPL will be active, you can now start entering commands.
 	-  To exist the REPL just type the word 'exit' and press enter
+
+Now to run our web-app:
+	- Navigate to the root directory and install flask by using the command;
+			- "pip install flask"
+	- After installing run the command "python web_app/app.py "
+	- The open your bowser and type http://127.0.0.1:5000

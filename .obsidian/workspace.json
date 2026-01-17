@@ -200,6 +200,8 @@
   },
   "active": "81d6042c416a7562",
   "lastOpenFiles": [
+    "web_app/templates/index.html",
+    "web_app/templates",
     "web_app/app.py~",
     "web_app/app.py"
   ]
