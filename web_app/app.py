@@ -18,16 +18,29 @@ db = SimpleDB(data_dir="../data")
 
 @app.route('/')
 def index():
-# Demonstrates READ: Fetch data from a table named 'users'
-# Using our custom engine's execute method!
+    # Demonstrates READ: Fetch data from a table named 'users'
+    # Using our custom engine's execute method!
 
-rows = db.execute("SELECT * FROM users")
+    rows = db.execute("SELECT * FROM users")
 
-# If the table doesn't exist yet, rows will be an error string
-if issinstance(rows, str):
-    rows = []
+    # If the table doesn't exist yet, rows will be an error string
+    if isinstance(rows, str):
+        rows = []
 
     return render_template('index.html', rows=rows)
 
 @app.route('/add', methods=['POST'])
+def add_user():
+    # Demonstrate CREATE: Get data from a web form 
+    user_id = request.form['id']
+    name = request.form['name']
 
+    # Execute an INSERT using your custom RDBMS
+    db.execute(f"INSERT INTO users VALUES ({user_id}, '{name}')")
+
+    return redirect('/')
+
+if __name__ == '__main__':
+    #Ensure a 'users' table exists for the Demo 
+    db.execute("CREATE TABLE users (id, name)")
+    app.run(debug=True, port=5000)
