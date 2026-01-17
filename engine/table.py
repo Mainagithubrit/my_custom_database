@@ -3,6 +3,7 @@
 
 import json
 import os
+from engine.index import Index
 
 class Table:
     def __init__(self, name, columns, primary_key):
@@ -13,9 +14,13 @@ class Table:
         self.rows = []
         self.file_path = f"data/{name}.json"
 
+        self.index = Index()
+
         # Load existing data if the file existing
         if os.path.exists(self.file_path):
             self.load()
+
+            self.index.rebuild(self.rows, self.primary_key)
 
     def insert(self, row_data):
         """This adds a new row after checking rules."""

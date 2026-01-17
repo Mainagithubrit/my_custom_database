@@ -22,7 +22,15 @@ class Index:
 
     def remove_entry(self, key):
         """Removes a key from thr index (used during DELETE)."""
-        if str(key) in self.lookup_map
+        if str(key) in self.lookup_map:
             del self.lookup_map[str(key)]
 
     def rebuild(self, rows, key_name):
+        """Clears and recreates the index from scratch.
+            Useful when loading data from a file or after major changes"""
+
+        self.lookup_map = {}
+        for position, row in enumerate(rows):
+            key_val = row.get(key_name)
+            if key_val is not None:
+                self.add_entry(key_val, position)
