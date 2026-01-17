@@ -32,6 +32,10 @@ class Table:
 
         # 2. Add the data
         self.rows.append(row_data)
+        new_pos = len(self.rows) - 1
+        pk_value = row_data.get(self.primary_key)
+        self.index.add_entry(pk_value, new_pos)
+
         self.save()
         return "Row inserted succesfully."
     
@@ -42,10 +46,38 @@ class Table:
 
         return [r for r in self.rows if str(r.get(filter_col)) == str(filter_val)]
 
+    def update(self, filter_col, filter_val, new_data):
+        """Modifies existing rows.
+        new_data: A dictionary of columns to change"""
+
+        updated_count = 0
+
+        # Loop through all rows to find matches 
+        for row in self.rows:
+            if str(row.get(filter_col)) == str(filter_val):
+                # Updatethe row with new values
+                row.update(new_data)
+                updated_count +=1
+
+        # If we updated anything, save it 
+        if updated_count > 0:
+            # If the Primary key was changed, we rebuild the index 
+            if self.primary_key in new_data:
+                self.index.rebuild(self.rows, self.primary_key)
+
+            self.save()
+        return f"Updated {updated_count} rows."
+
     def delete(self, filter_col, filter_val):
         """Removes rows that match the filter."""
         original_count = len(self.rows)
+
+        if filter_col == self.primary_key:
+            self.index.remove_entry(filter_val)
+
         self.rows = [r for r in self.rows if str(r.get(filter_col)) != str(filter_val)]
+
+        self.index.rebuild(self.rows, self.primary_key)
         self.save()
         return f"Deleted {original_count - len(self.rows)} rows."
 
