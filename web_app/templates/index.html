@@ -4,6 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" type="" href="{{ url_for('static', filename='css/style.css') }}">
   <title>My Custom RDBMS Demo</title>
   <style>
     body {
@@ -60,8 +61,8 @@
     <tbody>
       {% for row in rows %}
       <tr>
-        <td>{{ row.id }}</td>
-        <td>{{ row.name }}</td>
+        <td>{{ row['id'] }}</td>
+        <td>{{ row['name'] }}</td>
       </tr>
       {% endfor %}
     </tbody>

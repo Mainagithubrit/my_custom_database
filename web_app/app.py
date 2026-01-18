@@ -1,23 +1,33 @@
 """This is our web server we are using flask"""
 
-from flask import Flask, render_template, request, redirect
+from flask import Flask, config, render_template, request, redirect
 import sys
 import os
 
+
 # Imports from the 'engine' folder in the parent directory
 
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+project_root = os.path.abspath(os.path.join(BASE_DIR, '..'))
+
+sys.path.append(project_root)
 
 from engine.database import SimpleDB
 
-app = Flask(__name__)
 
-#Initializing our custom RDBMS
+app = Flask(__name__)
+app.config['TEMPLATES_AUTO_RELOAD'] = True
+
 # We point it to the same 'data' folder so it sees my REPL data
-db = SimpleDB(data_dir="../data")
+data_path = os.path.join(project_root, 'data')
+db = SimpleDB(data_dir=data_path)
 
 @app.route('/')
 def index():
+    #The database to check the 'data/' folder for new files 
+    db.autoload_tables()
+
+
     # Demonstrates READ: Fetch data from a table named 'users'
     # Using our custom engine's execute method!
 

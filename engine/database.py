@@ -4,6 +4,7 @@
 
 import os
 import re
+import json
 from engine.table import Table
 from engine.parser import SQLParser
 
@@ -22,11 +23,31 @@ class SimpleDB:
 
     def autoload_tables(self):
         """This function looks at the data folder and loads every table if finds"""
+        # Reset current tables
+        self.tables= {}
+
+        if not os.path.exists(self.data_dir):
+            os.makedirs(self.data_dir)
+
         for filename in os.listdir(self.data_dir):
             if filename.endswith(".json"):
                 table_name = filename.replace(".json", "")
                 # assuming 'id' is the primary key for simple autoload_tables
-                self.tables[table_name] = Table(table_name, [], 'id')
+                file_path = os.path.join(self.data_dir, filename)
+
+                try:
+                    with open(file_path, 'r') as f:
+                        data = json.load(f)
+
+                        if isinstance(data, list) and len(data) > 0:
+                            cols = list(data[0].keys())
+                        else:
+                            # TAble exists but is empty
+                            cols = []
+                except (json.JSONDecodeError, FileNotFoundError, IndexError):
+                    # HAndle corrupted or missing files safely
+                    cols = []
+                self.tables[table_name] = Table(table_name, cols, 'id')
 
     def create_table(self, name, columns, primary_key='id'):
         """Creates a new table and keeps track of it"""
