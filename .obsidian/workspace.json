@@ -34,6 +34,18 @@
               "icon": "lucide-file",
               "title": "README"
             }
+          },
+          {
+            "id": "73087f456f2bc4bc",
+            "type": "leaf",
+            "state": {
+              "type": "release-notes",
+              "state": {
+                "currentVersion": "1.11.5"
+              },
+              "icon": "lucide-book-up",
+              "title": "Release Notes 1.11.5"
+            }
           }
         ],
         "currentTab": 1

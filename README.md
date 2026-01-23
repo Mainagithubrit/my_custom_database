@@ -1,12 +1,3 @@
-				# my_custom_database
-
- Using python and Flask, I have created a custom database that uses CRUD to modify different sets of data stored in our database. I has an interactive REPL that uses SQL syntax to manipulate data in my database.I will have a front-end for showing my tables  in a web-app that is why I use flask as a framework.
-
-Some of the imports that I have used are:
- - Flask -  to be able to use flask web framework
- - re - (regular expression) will act as my parser, this will be used to identify keywords
- - json - for storing my data
- - cmd - this is what I use to create my REPL
 
  Below is my file system and what each file does:
 	 my_custom_db/
@@ -36,4 +27,32 @@ Now to run our web-app:
 	- Navigate to the root directory and install flask by using the command;
 			- "pip install flask"
 	- After installing run the command "python web_app/app.py "
-	- The open your bowser and type http://127.0.0.1:5000
+	- The open your bowser and type http://127.0.0.1:50i00
+
+Tech Stack & Libraries:
+-  **Python:** Core programming language.
+-  **Flask:** Used to build the web-app frontend.
+-  **re (Regular Expressions):** The primary engine for parsing SQL commands.
+-  **json:** Handles data persistence and storage.
+-  **cmd:** Used to create the interactive shell environment.
+
+How to Run
+1. The Interactive REPL (CLI)
+	Use this mode to execute SQL commands directly in your terminal.
+		1. Navigate to the root directory: `cd my_custom_db`
+		2. Run the REPL:
+			python main_repl.py
+		3. Type your SQL commands. To close the session, type `exit`.
+
+2. The Web Dashboard
+   Use this to view your database tables in a browser.
+		1. Install Flask:
+			pip install flask
+		2. Run the web server:
+			python web_app/app.py
+
+3. 1. Open your browser and go to: http://127.0.0.1:5000
+
+Author
+- GitHub: https://github.com/Mainagithubrit
+- LinkedIn: www.linkedin.com/in/francis-njoroge12
